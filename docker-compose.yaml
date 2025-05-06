@@ -23,7 +23,7 @@ services:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres  # Explicitly setting the DB URL
 
     networks:
-      - cosc470-project_shared_network
+      - ethics-dashboard_shared_network
 
   frontend:
     build:
@@ -38,12 +38,12 @@ services:
       - backend
 
     networks:
-      - cosc470-project_shared_network
+      - ethics-dashboard_shared_network
 
 volumes:
   pgdata: {}
 
 
 networks:
-  cosc470-project_shared_network:
+  ethics-dashboard_shared_network:
     external: true  # Use Project 1's existing network
