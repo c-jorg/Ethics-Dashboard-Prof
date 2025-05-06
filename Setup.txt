@@ -1,0 +1,105 @@
+1. Install DBeaver & make sure you "pip install" everything in "requirements.txt"
+2. Open command prompt and run "docker run --name postgres-example -d -p 2022:5432 -e POSTGRES_PASSWORD=postgres postgres", use "psql -h localhost -p 2022 -U postgres" to connect to the db in cli
+3. Open DBeaver and run the following sql commands to make all of the tables:
+CREATE TABLE professors (
+    prof_id SERIAL PRIMARY KEY,
+    name VARCHAR,
+    email VARCHAR,
+    password VARCHAR
+);
+
+CREATE TABLE tas (
+    ta_id INTEGER PRIMARY KEY NOT NULL,
+    name CHARACTER VARYING,
+    email CHARACTER VARYING,
+    password CHARACTER VARYING
+);
+
+CREATE TABLE classes (
+    class_id INTEGER PRIMARY KEY NOT NULL,
+    class_name CHARACTER VARYING,
+    prof_id INTEGER REFERENCES professors(prof_id)
+);
+
+CREATE TABLE students (
+    student_id INTEGER PRIMARY KEY NOT NULL,
+    name CHARACTER VARYING,
+    email CHARACTER VARYING,
+    password CHARACTER VARYING,
+    guest BOOLEAN,
+    consented BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE case_studies (
+    case_study_id INTEGER PRIMARY KEY NOT NULL,
+    prof_id INTEGER REFERENCES professors(prof_id),
+    ta_id INTEGER REFERENCES tas(ta_id),
+    class_id INTEGER REFERENCES classes(class_id),
+    title CHARACTER VARYING,
+    last_modified DATE
+);
+
+CREATE TABLE enrollments (
+    enrollment_id INTEGER PRIMARY KEY NOT NULL,
+    class_id INTEGER REFERENCES classes(class_id),
+    student_id INTEGER REFERENCES students(student_id)
+);
+
+CREATE TABLE assignments (
+    assignment_id INTEGER PRIMARY KEY NOT NULL,
+    student_id INTEGER REFERENCES students(student_id),
+    case_study_id INTEGER REFERENCES case_studies(case_study_id),
+    submitted BOOLEAN,
+    graded BOOLEAN,
+    last_modified TIMESTAMP
+);
+
+CREATE TABLE forms (
+    form_id INTEGER PRIMARY KEY NOT NULL,
+    name CHARACTER VARYING
+);
+
+CREATE TABLE answers (
+    answer_id INTEGER PRIMARY KEY NOT NULL,
+    assignment_id INTEGER REFERENCES assignments(assignment_id),
+    form_id INTEGER REFERENCES forms(form_id),
+    key CHARACTER VARYING,
+    value_string CHARACTER VARYING,
+    value_int INTEGER,
+    created TIMESTAMP,
+    last_modified TIMESTAMP
+);
+
+CREATE TABLE dynamic_questions (
+    dynamic_question_id INTEGER PRIMARY KEY NOT NULL,
+    case_study_id INTEGER REFERENCES case_studies(case_study_id),
+    form_id INTEGER REFERENCES forms(form_id),
+    question_text CHARACTER VARYING
+);
+
+CREATE TABLE feedbacks (
+    feedback_id INTEGER PRIMARY KEY NOT NULL,
+    assignment_id INTEGER REFERENCES assignments(assignment_id),
+    content CHARACTER VARYING,
+    last_modified DATE,
+    answer_id INTEGER,
+    form_id INTEGER REFERENCES forms(form_id),
+    section_key CHARACTER VARYING
+);
+
+CREATE TABLE submissions (
+    submission_id INTEGER PRIMARY KEY NOT NULL,
+    assignment_id INTEGER REFERENCES assignments(assignment_id),
+    form_id INTEGER REFERENCES forms(form_id),
+    submitted_time TIMESTAMP,
+    student_id INTEGER
+);
+
+
+4. Git clone "tyler-dev-471" branch
+5. Naviate to "the-project-team-1" directory.
+6. Run "docker-compose up --build"
+7. Once that's done, in a separate terminal run "docker network connect the-project-team-1_default postgres-example"
+8. open "http://localhost:5173/"
+9. Test functionality
+10. To stop, run "docker network disconnect the-project-team-1_default postgres-example", then "docker-compose down"

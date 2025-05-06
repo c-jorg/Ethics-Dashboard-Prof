@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  # db:
+  #   image: postgres
+  #   container_name: db
+  #   ports:
+  #     - "2022:5432"
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres  # Explicitly setting the DB URL
+
+    networks:
+      - cosc470-project_shared_network
+
+  frontend:
+    build:
+      context: ./app/templates
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./app/templates:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+    networks:
+      - cosc470-project_shared_network
+
+volumes:
+  pgdata: {}
+
+
+networks:
+  cosc470-project_shared_network:
+    external: true  # Use Project 1's existing network

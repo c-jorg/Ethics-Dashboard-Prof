@@ -1,0 +1,31 @@
+# Python Generic
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.Identifier
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs and Editors
+.vscode/
+.idea/
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Others
+*.bak
+*.backup
+*.swp
+
+#Project Specific
+.env
+
+**/node_modules/
