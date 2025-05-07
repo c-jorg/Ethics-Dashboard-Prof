@@ -13,11 +13,8 @@ import ViewStudent from './components/viewstudent';
 import ProfProfile from './components/prof-profile';
 import TAProfile from './components/ta-profile';
 import AddTAs from './components/add-ta';
-
+//import LoginForm from './components/index';
 import SignupForm from './components/signupform';
-
-const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
-const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 
 const router = createBrowserRouter([
   {
