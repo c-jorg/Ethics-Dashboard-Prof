@@ -60,7 +60,7 @@ const ProfessorDashboard = () => {
     try {
       setLoading(true);
 
-      const response = await axios.get(`http://213.255.209.162:5000/api/classes/${profId}`);
+      const response = await axios.get(`${backendApiUrl}/api/classes/${profId}`);
       console.log("Classes fetched:", response.data);
       const classesWithColors = response.data.map((classItem, index) => ({
         ...classItem,

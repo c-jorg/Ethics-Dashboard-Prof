@@ -98,7 +98,7 @@ const ViewStudent = () => {
 
             try {
                 // Fetch student details
-                const studentResponse = await axios.get(`http://213.255.209.162:5000/api/students/${studentId}`);
+                const studentResponse = await axios.get(`${backendApiUrl}/api/students/${studentId}`);
                 setStudent(studentResponse.data);
                 setLoading(false);
             } catch (err) {

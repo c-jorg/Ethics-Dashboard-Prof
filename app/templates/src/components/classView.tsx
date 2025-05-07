@@ -75,7 +75,7 @@ const ClassView = () => {
 
       try {
         // Get class details
-        const classResponse = await axios.get(`http://213.255.209.162:5000/api/class/${classId}`);
+        const classResponse = await axios.get(`${backendApiUrl}/api/class/${classId}`);
 
         // Once we have class details, we can use them to set up our state
         setClassData({
@@ -96,7 +96,7 @@ const ClassView = () => {
         // You can also fetch cases and students here if you have endpoints for them
 
         try {
-        const enrollmentsResponse = await axios.get(`http://213.255.209.162:5000/api/class/${classId}/students`);
+        const enrollmentsResponse = await axios.get(`${backendApiUrl}/api/class/${classId}/students`);
         console.log("Enrolled students:", enrollmentsResponse.data);
 
         // Update the students state with the fetched students

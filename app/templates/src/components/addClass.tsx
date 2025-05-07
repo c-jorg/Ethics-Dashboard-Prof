@@ -104,7 +104,7 @@ const AddClass = () => {
     setError('');
 
     try {
-      const response = await fetch('http://213.255.209.162:5000/api/add-class', {
+      const response = await fetch(`${backendApiUrl}/api/add-class`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

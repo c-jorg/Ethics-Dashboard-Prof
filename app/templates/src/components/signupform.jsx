@@ -33,7 +33,7 @@ const AuthForm = () => {
             }
 
             try {
-                const response = await axios.post('http://213.255.209.162:5000/api/professors/signup', { //port 5173 for shared db
+                const response = await axios.post(`${backendApiUrl}/api/professors/signup`, { //port 5173 for shared db
                     name: formData.name,
                     email: formData.email,
                     password: formData.password
@@ -46,7 +46,7 @@ const AuthForm = () => {
             }
         } else {
             try {
-                const response = await axios.post('http://213.255.209.162:5000/api/professors/login', { //port 5173 for shared db
+                const response = await axios.post(`${backendApiUrl}/api/professors/login`, { //port 5173 for shared db
                     email: formData.email,
                     password: formData.password
                 });
