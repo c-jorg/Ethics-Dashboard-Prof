@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 const AuthForm = () => {
     const navigate = useNavigate();
     const [isRegister, setIsRegister] = useState(true);

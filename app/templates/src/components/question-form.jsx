@@ -1,5 +1,8 @@
 import React from 'react';
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 const QuestionForm = () => {
     const styles = {
         formContainer: {

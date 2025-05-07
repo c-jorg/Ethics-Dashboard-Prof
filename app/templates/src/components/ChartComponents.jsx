@@ -1,5 +1,8 @@
 import React from 'react';
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 // BarChart Component
 export const BarChart = ({ data }) => {
   const barHeight = (data / 100) * 100; // Scale data to fit within 100px height

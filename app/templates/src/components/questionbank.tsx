@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from './header'; // Import the reusable Header component
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 type QuestionType = 'written' | 'slider';
 
 interface Question {

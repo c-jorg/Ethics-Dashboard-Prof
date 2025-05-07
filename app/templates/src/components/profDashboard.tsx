@@ -5,6 +5,9 @@ import Header from './header';
 import LogoutModal from './LogoutModal';
 import axios from 'axios';
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 const ProfessorDashboard = () => {
   const navigate = useNavigate();
   const [classes, setClasses] = useState([]);

@@ -16,6 +16,9 @@ import AddTAs from './components/add-ta';
 
 import SignupForm from './components/signupform';
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 const router = createBrowserRouter([
   {
     path: "/", 

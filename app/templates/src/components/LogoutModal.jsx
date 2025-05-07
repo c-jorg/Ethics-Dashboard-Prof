@@ -1,6 +1,9 @@
 import React from "react";
 import { LogOut, X } from "lucide-react";
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 const LogoutModal = ({ isOpen, onClose, onLogout }) => {
   if (!isOpen) return null;
 

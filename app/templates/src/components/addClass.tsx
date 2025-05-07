@@ -3,6 +3,9 @@ import { Menu, X, Upload, AlertCircle } from 'lucide-react';
 import Papa from 'papaparse';
 import { useNavigate } from 'react-router-dom'; // Added import
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 const AddClass = () => {
   // State management
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);

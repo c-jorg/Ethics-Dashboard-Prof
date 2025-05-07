@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Search, ChevronDown, ExternalLink } from 'lucide-react';
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 // FAQ Data structure remains the same
 interface FAQItem {
   question: string;

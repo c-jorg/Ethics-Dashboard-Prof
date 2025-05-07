@@ -3,6 +3,9 @@ import { LogOut, Home } from 'lucide-react'; // Import icons
 import { useNavigate } from 'react-router-dom';
 import Header from './header'; // Import the Header component
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 const AssignmentBank = () => {
   const navigate = useNavigate();
 

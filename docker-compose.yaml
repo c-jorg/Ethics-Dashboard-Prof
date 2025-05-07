@@ -20,7 +20,7 @@ services:
       - .:/app
     environment:
       - FLASK_ENV=development
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres  # Explicitly setting the DB URL
+      - DATABASE_URL=postgresql://ethics_dashboard:Letmein1!@db:5432/ethics_dashboard  # Explicitly setting the DB URL
 
     networks:
       - ethics-dashboard_shared_network

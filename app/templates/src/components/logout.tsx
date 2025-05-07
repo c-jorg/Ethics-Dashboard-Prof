@@ -2,6 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, Menu, X } from "lucide-react";
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 const LogoutConfirmation = () => {
   const navigate = useNavigate();
   const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);

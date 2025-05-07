@@ -2,6 +2,9 @@ import React from 'react';
 import { LogOut, Home, User } from 'lucide-react'; // Import the User icon for profile
 import { useNavigate } from 'react-router-dom';
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 interface HeaderProps {
   title: string;
 }

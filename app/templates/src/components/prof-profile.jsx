@@ -2,6 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import Header from './header'; // Import the Header component
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 const ProfProfile = () => {
   const navigate = useNavigate(); // Initialize the navigate function
 

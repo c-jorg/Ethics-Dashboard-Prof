@@ -5,6 +5,9 @@ import { BarChart, PieChart, LineChart, DoughnutChart } from './ChartComponents'
 import Header from './header'; // Import the Header component
 import axios from 'axios';
 
+const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 // Define types for better type safety
 type Case = {
   id: number;
