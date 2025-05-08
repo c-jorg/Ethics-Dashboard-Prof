@@ -26,6 +26,6 @@ temp/
 *.swp
 
 #Project Specific
-.env
+#.env
 
-**/node_modules/
+#**/node_modules/
