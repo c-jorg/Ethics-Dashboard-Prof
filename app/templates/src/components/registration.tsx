@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 const backendApiUrl = process.env.BACKEND_API_URL || "http://localhost:5000";
 const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+console.log("Backend API URL:", backendApiUrl);
+console.log("Frontend URL:", frontendUrl);
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
