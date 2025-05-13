@@ -1,7 +1,5 @@
 from flask import Blueprint, jsonify, request
-from ..models.school_class import Class
-from ..models.student import Student
-from ..models.enrollment import Enrollment
+from ..models import Class, Student, Professor, Enrollment
 from .. import db
 from sqlalchemy.exc import IntegrityError
 
@@ -10,7 +8,12 @@ class_bp = Blueprint('class', __name__, url_prefix='/api')
 @class_bp.route('/classes/<int:prof_id>', methods=['GET'])
 def get_professor_classes(prof_id):
     try:
+        prof_exists = Professor.get_professor_by_id(prof_id)
+        if not prof_exists:
+            return jsonify({"message":"No professor found with this id"}), 404
         classes = Class.query.filter_by(prof_id=prof_id).all()
+        if len(classes) == 0:
+            return jsonify({'message': 'No classes found for this professor'}), 404 
         classes_list = []
         for cls in classes:
             classes_list.append({

@@ -1,12 +1,12 @@
 import os
 
 # Database configuration
-DB_USER = os.environ.get('DB_USER', 'postgres')
-DB_PASSWORD = os.environ.get('DB_PASSWORD', 'postgres')
+DB_USER = os.environ.get('DB_USER', 'ethics_dashboard')
+DB_PASSWORD = os.environ.get('DB_PASSWORD', 'Letmein1!')
 DB_HOST = os.environ.get('DB_HOST', 'db')
 # DB_HOST = os.environ.get('DB_HOST', 'postgres-example')
 DB_PORT = os.environ.get('DB_PORT', '5432') # or 2022?
-DB_NAME = os.environ.get('DB_NAME', 'postgres')
+DB_NAME = os.environ.get('DB_NAME', 'ethics_dashboard')
 
 # SQLAlchemy database URI
 #postgresql://postgres:postgres@db:5432/postgres

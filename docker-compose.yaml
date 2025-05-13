@@ -11,6 +11,7 @@ services:
   #     POSTGRES_PASSWORD: postgres
 
   backend:
+    container_name: prof_backend
     build:
       context: .
       dockerfile: Dockerfile.backend
@@ -21,11 +22,17 @@ services:
     environment:
       - FLASK_ENV=development
       - DATABASE_URL=postgresql://ethics_dashboard:Letmein1!@db:5432/ethics_dashboard  # Explicitly setting the DB URL
+      - DB_USER = ethics_dashboard
+      - DB_PASSWORD = Letmein1!
+      - DB_HOST = db
+      - DB_PORT = 5432
+      - DB_NAME = ethics_dashboard
 
     networks:
-      - ethics-dashboard_shared_network
+      - ethicsdashboard_shared_network
 
   frontend:
+    container_name: prof_frontend
     build:
       context: ./app/templates
       dockerfile: Dockerfile.frontend
@@ -38,12 +45,12 @@ services:
       - backend
 
     networks:
-      - ethics-dashboard_shared_network
+      - ethicsdashboard_shared_network
 
 volumes:
   pgdata: {}
 
 
 networks:
-  ethics-dashboard_shared_network:
+  ethicsdashboard_shared_network:
     external: true  # Use Project 1's existing network

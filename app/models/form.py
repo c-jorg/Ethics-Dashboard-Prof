@@ -1,5 +1,4 @@
-from .. import db, ma
-
+from .db import db, ma 
 
 class Form(db.Model):
     __tablename__ = "forms"
@@ -12,16 +11,19 @@ class Form(db.Model):
 
     def json(self):
         return {'id': self.id, 'name': self.name}
-
+    
     def __repr__(self):
         return f"Form({self.id}, {self.name})"
-
+    
     def get_id(self):
         return self.id
-
+    
+    def set_id(self, id):
+        self.id = id
+    
     def get_name(self):
         return self.name
-
+    
     @classmethod
     def get_form_by_name(cls, name):
         print("FORM MODEL: get_form_by_name called with name " + name)
@@ -32,17 +34,17 @@ class Form(db.Model):
         else:
             print("No form found with name " + name)
             return None
-
+    
     @classmethod
     def get_form_id_by_name(cls, name):
         form = cls.query.filter(cls.name == name).first()
         return form.id
-
+    
     @classmethod
     def get_form_by_id(cls, id):
         return cls.query.filter(cls.id == id).first()
-
-    @classmethod
+    
+    @classmethod 
     def post_form(cls, name):
         form = cls(name)
         db.session.add(form)
@@ -64,7 +66,16 @@ class Form(db.Model):
         form.name = name
         db.session.commit()
 
-
+    @classmethod
+    def get_all_forms(cls):
+        forms = cls.query.all()
+        return forms
+    
+    @classmethod
+    def get_count_of_forms(cls):
+        count = db.session.query(cls).count()
+        return count
+    
 class FormSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Form
