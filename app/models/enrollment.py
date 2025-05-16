@@ -32,7 +32,9 @@ class Enrollment(db.Model):
         db.session.commit()
         return enrollment
     
-    
+    @classmethod
+    def get_enrollment_by_student_id_and_class_id(cls, student_id, class_id):
+        return db.session.query(cls).filter(cls.student_id == student_id, cls.class_id == class_id).first()
 
 class EnrollmentSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

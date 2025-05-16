@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, make_response, request
 from ..models import Class, Student, Professor, Enrollment
-from .. import db
+#from .. import db
 from sqlalchemy.exc import IntegrityError
 
 class_bp = Blueprint('class', __name__, url_prefix='/api')
@@ -30,85 +30,60 @@ def get_professor_classes(prof_id):
 def add_class():
     data = request.get_json()
     try:
-        class_id = int(data.get('class_id'))
+        #class_id = int(data.get('class_id'))
         class_name = data.get('class_name')
         professor_id = int(data.get('professor_id'))
+        class_code = data.get('class_code')
         students = data.get('students')
     except (TypeError, ValueError):
         return jsonify({'success': False, 'message': 'Invalid input data'}), 400
 
-    if not all([class_id, class_name, professor_id, students]):
+    if not all([class_code, class_name, professor_id, class_code, students]):
         return jsonify({'success': False, 'message': 'Missing required fields'}), 400
 
     # Check if class_id already exists
-    if Class.query.get(class_id):
-        return jsonify({'success': False, 'message': 'Class ID already exists'}), 400
+    if Class.get_class_by_class_code(class_code):
+        return jsonify({'success': False, 'message': 'Class with that code already exists'}), 400
 
-    new_class = Class(class_name=class_name, prof_id=professor_id)
-    new_class.id = class_id
-    db.session.add(new_class)
-
+    Class.post_class(class_name, professor_id, class_code)
+    if Class.get_class_by_class_code(class_code):
+        return make_response(jsonify({"message":"error making class"}, 500))
+    class_id = Class.get_class_id_by_class_code(class_code)
     # Process students and create enrollments
     for student_data in students:
-        try:
-            student_id = int(student_data['id'])
-        except (TypeError, ValueError):
-            db.session.rollback()
-            return jsonify({'success': False, 'message': 'Invalid student ID'}), 400
 
-        name = student_data.get('name')
+        #name = student_data.get('name')
         email = student_data.get('email')
-        if not name or not email:
-            db.session.rollback()
-            return jsonify({'success': False, 'message': 'Missing student name or email'}), 400
+        if not email:
+            #db.session.rollback()
+            return jsonify({'success': False, 'message': 'Missing student email'}), 400
 
-        # Check if student already exists by ID or email
-        student = Student.query.get(student_id)
+        # Check if student already exists by or email
+        student = Student.get_student_by_email(email)
+        #if they dont exist add them to students table, if they do exist thats fine
         if not student:
-            student_by_email = Student.query.filter_by(email=email).first()
-            if student_by_email:
-                # If email exists but ID doesn't match, return error
-                if student_by_email.id != student_id:
-                    db.session.rollback()
-                    return jsonify(
-                        {'success': False, 'message': f'Email {email} already exists with different ID'}), 400
-                student = student_by_email
-            else:
-                # Create new student if not exists
-                student = Student(name=name, email=email, password=None)
-                student.id = student_id
-                db.session.add(student)
-
+            Student.post_student_email(email)
+        student_id = Student.get_student_id_by_email(email)
         # Check if enrollment already exists
-        existing_enrollment = Enrollment.query.filter_by(
-            class_id=class_id,
-            student_id=student_id
-        ).first()
+        enrollment = Enrollment.get_enrollment_by_student_id_and_class_id(student_id, class_id)
 
-        if not existing_enrollment:
+        if not enrollment:
             # Create enrollment if it doesn't exist
             try:
-                # Get the next available ID (simplified approach)
-                max_id_result = db.session.query(db.func.max(Enrollment.id)).scalar()
-                next_id = 1 if max_id_result is None else max_id_result + 1
-
-                # Create enrollment with explicit ID
-                enrollment = Enrollment(class_id=class_id, student_id=student_id)
-                enrollment.id = next_id
-                db.session.add(enrollment)
+                Enrollment.enroll_student(student_id, class_id)
             except Exception as e:
-                db.session.rollback()
+                #db.session.rollback()
                 return jsonify({'success': False, 'message': f'Error creating enrollment: {str(e)}'}), 500
 
     try:
-        db.session.commit()
-        return jsonify({'success': True, 'message': 'Class and students created successfully'}), 201
+        #db.session.commit()
+        return make_response(jsonify({'success': True, 'message': 'Class and students created successfully'}), 201)
     except IntegrityError as e:
-        db.session.rollback()
+        #db.session.rollback()
         return jsonify({'success': False, 'message': f'Database integrity error: {str(e)}'}), 400
     except Exception as e:
-        db.session.rollback()
-        return jsonify({'success': False, 'message': f'Error: {str(e)}'}), 500
+        #db.session.rollback()
+        return make_response(jsonify({'success': False, 'message': f'Error: {str(e)}'}), 500)
 
 
 @class_bp.route('/class/<int:class_id>', methods=['GET'])
