@@ -21,12 +21,12 @@ services:
       - .:/app
     environment:
       - FLASK_ENV=development
-      - DATABASE_URL=postgresql://ethics_dashboard:Letmein1!@db:5432/ethics_dashboard  # Explicitly setting the DB URL
-      - DB_USER = ethics_dashboard
-      - DB_PASSWORD = Letmein1!
-      - DB_HOST = db
-      - DB_PORT = 5432
-      - DB_NAME = ethics_dashboard
+      - DATABASE_URL=postgresql://ethics_dashboard:Letmein1!@db:5432/ethics_dashboard # Explicitly setting the DB URL
+      - DB_USER=ethics_dashboard
+      - DB_PASSWORD=Letmein1!
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=ethics_dashboard
 
     networks:
       - ethicddashboard_shared_network
