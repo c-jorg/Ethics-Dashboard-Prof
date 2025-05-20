@@ -138,7 +138,12 @@ class Student(db.Model):
     
     @classmethod 
     def get_student_id_by_email(cls, email):
-        return db.session.query(cls).filter(cls.email == email).first().id
+        print("getting student in student class", flush=True)
+        student = cls.query.filter(cls.email == email).first()
+        print(f"in student class {student}", flush=True)
+        if student is None:
+            return None
+        return student.id
     
     @classmethod
     def get_student_by_id(cls, id):

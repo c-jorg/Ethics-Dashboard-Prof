@@ -65,6 +65,14 @@ class Class(db.Model):
         if course:
             return course.id
         return None
+    
+    @classmethod
+    def get_all_classes_by_professor_id(cls, prof_id):
+        return db.session.query(cls).filter(cls.prof_id == prof_id).all()
+    
+    @classmethod
+    def get_class_by_class_id(cls, class_id):
+        return db.session.query(cls).filter(cls.id == class_id).first()
 
 class ClassSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
