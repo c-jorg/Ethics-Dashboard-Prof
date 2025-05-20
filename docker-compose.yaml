@@ -29,7 +29,7 @@ services:
       - DB_NAME = ethics_dashboard
 
     networks:
-      - ethicsdashboard_shared_network
+      - ethicddashboard_shared_network
 
   frontend:
     container_name: prof_frontend
@@ -45,12 +45,12 @@ services:
       - backend
 
     networks:
-      - ethicsdashboard_shared_network
+      - ethicddashboard_shared_network
 
 volumes:
   pgdata: {}
 
 
 networks:
-  ethicsdashboard_shared_network:
+  ethicddashboard_shared_network:
     external: true  # Use Project 1's existing network
