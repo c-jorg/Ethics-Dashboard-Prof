@@ -54,3 +54,4 @@ volumes:
 networks:
   ethicddashboard_shared_network:
     external: true  # Use Project 1's existing network
+    name: ethicddashboard_shared_network
