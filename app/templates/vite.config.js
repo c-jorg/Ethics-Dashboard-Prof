@@ -5,4 +5,10 @@ import envCompatible from 'vite-plugin-env-compatible'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), envCompatible()],
+  server:{
+    allowedHosts: [
+      'prof_frontend',
+      'prof_backend'
+    ]
+  }
 })

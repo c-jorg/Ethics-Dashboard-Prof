@@ -4,7 +4,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 # from app import db, app, ma
-from ..__init__ import db, ma
+from .db import db, ma
 from .answer import Answer, AnswerSchema
 from .assignment import Assignment, AssignmentSchema
 from .case_study import CaseStudy, CaseStudySchema
@@ -15,10 +15,12 @@ from .form import Form, FormSchema
 from .professor import Professor, ProfessorSchema
 from .question import Question, QuestionSchema
 from .school_class import Class, ClassSchema
-from .student import Student, StudentSchema
 from .submission import Submission, SubmissionSchema
+from .student import Student, StudentSchema
 from .ta import TA, TASchema
+from .form_description import FormDescription, FormDescriptionSchema
 from .case_study_option import CaseStudyOption, CaseStudyOptionSchema
+from .slider_question import SliderQuestion, SliderQuestionSchema
 
 # Assignment.submissions = db.relationship("Submission", backref='assignment', lazy=True)
 # Assignment.answers = db.relationship('Answer', backref='assingment', lazy=True)
@@ -53,9 +55,11 @@ __all__ = [
     'Class',
     'Student',
     'Submission',
+    'FormDescription',
     'TA',
     'CaseStudyOption',
     'Grade',
+    'SliderQuestion',
     'AnswerSchema',
     'AssignmentSchema',
     'CaseStudySchema',
@@ -67,7 +71,9 @@ __all__ = [
     'ClassSchema',
     'StudentSchema',
     'SubmissionSchema',
+    'FormDescriptionSchema',
     'TASchema',
     'CaseStudyOptionSchema',
-    'GradeSchema'
+    'GradeSchema',
+    'SliderQuestionSchema'
 ]

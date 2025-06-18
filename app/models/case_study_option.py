@@ -1,5 +1,4 @@
-from .. import db, ma
-
+from .db import db, ma
 
 class CaseStudyOption(db.Model):
     __tablename__ = "case_study_options"
@@ -10,35 +9,34 @@ class CaseStudyOption(db.Model):
     description = db.Column("description", db.String)
 
     def __init__(self, case_study_id, title, description):
-        self.case_study_id = case_study_id
-        self.title = title
-        self.description = description
+        self.case_study_id = case_study_id 
+        self.title = title 
+        self.description = description 
 
     def __repr__(self):
         return f"case_study_id: {self.case_study_id} title: {self.title} description: {self.description}"
 
-    @classmethod
+    @classmethod 
     def get_case_study_id_by_id(cls, id):
         return db.session.query(cls).filter(cls.id == id).first().id
 
-    @classmethod
+    @classmethod 
     def get_case_study_by_id(cls, id):
         return db.session.query(cls).filter(cls.id == id).first()
-
-    @classmethod
+    
+    @classmethod 
     def post_case_study_option(cls, case_study_id, title, description):
         case_study_option = cls(case_study_id, title, description)
         db.session.add(case_study_option)
         db.session.commit()
 
-    @classmethod
+    @classmethod 
     def get_case_study_option_by_id(cls, id):
         return db.session.query(cls).filter(cls.id == id).first()
-
-    @classmethod
+    
+    @classmethod 
     def get_case_study_options_by_case_study_id(cls, case_study_id):
         return db.session.query(cls).filter(cls.case_study_id == case_study_id).all()
-
 
 class CaseStudyOptionSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
